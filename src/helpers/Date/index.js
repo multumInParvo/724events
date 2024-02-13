@@ -1,3 +1,5 @@
+// helpers date component
+
 export const MONTHS = {
   1: "janvier",
   2: "février",
@@ -13,4 +15,5 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+export const getMonth = (date) => MONTHS[date.getMonth() + 1]; 
+// added + 1
