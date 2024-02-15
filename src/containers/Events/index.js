@@ -1,3 +1,4 @@
+// containers/Events component
 import { useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
@@ -16,7 +17,7 @@ const EventList = () => {
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events) || []
+      : data?.events.filter((event) => event.type === type)) || [] // This part of the expression uses a ternary operator (? :) to conditionally filter the events based on the type state.
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
