@@ -18,7 +18,7 @@ const Page = () => {
 
   const { data } = useData()
   // events sorted by date to obtain the last event date
-   const last = data?.events.sort((a, b) => new Date(b.date) - new Date(a.date) )[0];
+  const last = data?.events.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
   return <>
     <header>
@@ -122,13 +122,16 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        {last && (  // last is added to remove warnings from console. && operator ensures the component is only rendered if last has a value.
+          <EventCard
+            imageSrc={last?.cover}
+            title={last?.title}
+            date={new Date(last?.date)}
+            small
+            label={last?.type}
+            data-testid="lastEvent"
+          />
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
