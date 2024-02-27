@@ -9,32 +9,33 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
-  );
+  const byDateDesc = data?.focus.sort((a, b) =>
 
+    new Date(a.date) < new Date(b.date) ? -1 : 1
+  );
   const nextCard = () => {
     setTimeout(
-      () => setIndex((index + 1) % byDateDesc.length), // used modulo to cycle the index back to 0 when it reaches the end of the array.
+
+      () => setIndex(index + 1 < byDateDesc?.length ? index + 1 : 0), // added + 1 to index to remove undefined element
       5000
     );
   };
-
   useEffect(() => {
     nextCard();
   });
-  
+
   return (
-    <div className="SlideCardList">
+    <div className="SlideCardList">   
+       {/* deleted <> fragment that was encapsulating different elements */}
       {byDateDesc?.map((event, idx) => (
-      
-          <div
-            key={event.title}
+        // chnaged for a unique key for each slide
+        <div key={event.date}>
+          <div            
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
           >
-            <img src={event.cover} alt="forum" />
+            <img src={event.cover} alt={event.title} />
             <div className="SlideCard__descriptionContainer">
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
@@ -43,21 +44,21 @@ const Slider = () => {
               </div>
             </div>
           </div>
-              ))}
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${_.date}`}
+                  key={_.date}
                   type="radio"
                   name="radio-button"
-                  checked={(index + 1) % byDateDesc.length === (radioIdx + 1) % byDateDesc.length}
+                  checked={index === radioIdx}
+                  readOnly // adding readOnly removes the warning from console, making the radio button non-interactive.
                 />
               ))}
             </div>
           </div>
-     
-  
+        </div>
+      ))}
     </div>
   );
 };
