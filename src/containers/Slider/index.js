@@ -9,9 +9,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((a, b) =>
+  const byDateDesc = data?.focus.sort((evtA, evtB) =>
 
-    new Date(a.date) < new Date(b.date) ? -1 : 1
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
     setTimeout(
@@ -29,7 +29,7 @@ const Slider = () => {
        {/* deleted <> fragment that was encapsulating different elements */}
       {byDateDesc?.map((event, idx) => (
         // chnaged for a unique key for each slide
-        <div key={event.date}>
+        <div key={event.title}>
           <div            
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
