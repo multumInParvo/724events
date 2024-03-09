@@ -23,7 +23,7 @@ describe("When a select is created", () => {
     });
   });
 
-  describe("and a click is trigger on collapse button", () => {
+  describe("and a click is triggered on collapse button", () => {
     it("a list of values is displayed", () => {
       render(<Select selection={["value1", "value2"]} />);
       const collapseButtonElement = screen.getByTestId(
@@ -42,7 +42,7 @@ describe("When a select is created", () => {
       expect(choice2).toBeInTheDocument();
     });
     describe("and a click is triggered on a choice item", () => {
-      it("a onChange callback is called", () => {
+      it("an onChange callback is called", () => {
         const onChange = jest.fn();
         render(<Select selection={["value1", "value2"]} onChange={onChange} />);
         const collapseButtonElement = screen.getByTestId(
